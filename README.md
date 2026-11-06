@@ -117,12 +117,22 @@ program-list.html       元の仮作成ファイル（参照用）
 
 ## GitHub Pages で公開する
 
-1. 同期を実行してから、このフォルダを GitHub のリポジトリに push する
-2. リポジトリの Settings → Pages で「Deploy from a branch」を選び、`main` ブランチの `/ (root)` を指定する
+公開先：https://appsmanager1947-lab.github.io/inspirehigh-midorigaoka/
+（リポジトリ：https://github.com/appsmanager1947-lab/inspirehigh-midorigaoka 、`main` ブランチの `/ (root)` を公開）
 
-パスはすべて相対指定なので、`https://ユーザー名.github.io/リポジトリ名/` のようなサブパスでもそのまま動きます。
+### 更新を公開する手順
+
+1. 画像を追加・削除したら `同期.bat` を実行する
+2. VS Code の「ソース管理」（左側の枝分かれアイコン）で、メッセージを書いて「コミット」→「変更の同期」（push）
+   - コマンドで行う場合：`git add -A` → `git commit -m "更新内容"` → `git push`
+3. 1〜2分で公開サイトに反映される（ブラウザのキャッシュが残っていたら再読み込み）
+
+元画像（`サムネイル/` の中身、`assets-src/`）と `program-list.html` は `.gitignore` で除外しているので、GitHub には上がりません。元画像はこのPCにだけ残ります。
+
+パスはすべて相対指定なので、サブパス（`/inspirehigh-midorigaoka/`）でもそのまま動きます。
 
 ## 補足
 
 - 「最近の視聴」は、詳細ページを最後に開いたプログラムを、その端末のブラウザに保存して表示します。まだ何も見ていないときは、先頭のプログラムを表示します。
-- リポジトリに含めたファイルは、すべて公開されます（`サムネイル/` の元画像や `program-list.html` も含む）。元画像を公開したくない場合は、`.gitignore` に `サムネイル/*/*` と `!サムネイル/*/.gitkeep` の2行を追加してください（2行目は、空のクラスフォルダを残すための指定です）。サイトの表示に使うのは `images/` の変換済み画像だけなので、表示には影響しません。
+- リポジトリは公開（public）なので、push したファイルは誰でも見られます。`data/programs.json` の `source` には、元画像のファイル名が入ります。
+- 別のPCで同期したい場合は、元画像が GitHub にないので、`サムネイル/` の中身と `assets-src/` を別途コピーしてください。
