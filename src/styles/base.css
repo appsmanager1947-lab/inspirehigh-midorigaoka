@@ -1,0 +1,185 @@
+/* ============================================================
+   共通スタイル（全ページ）
+   配色・余白・角丸・フォントは program-list.html（仮作成）から変更なし
+   ============================================================ */
+
+:root {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --text: #1f1f1f;
+  --muted: #b9b9b9;
+  --line: #1f1f1f;
+  --shadow: 0 2px 10px rgba(0, 0, 0, .14);
+  --shadow-hover: 0 10px 26px rgba(0, 0, 0, .18);
+  --head-shadow: 0 1px 6px rgba(0, 0, 0, .08);
+  --logo: #e23a2e;
+  --focus: #3b82f6;
+  --ease-out: cubic-bezier(.2, .7, .3, 1);
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161616;
+    --surface: #1e1e1e;
+    --text: #f1f1f1;
+    --muted: #6f6f6f;
+    --line: #f1f1f1;
+    --shadow: 0 2px 10px rgba(0, 0, 0, .6);
+    --shadow-hover: 0 10px 26px rgba(0, 0, 0, .75);
+    --head-shadow: 0 1px 6px rgba(0, 0, 0, .5);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #161616;
+  --surface: #1e1e1e;
+  --text: #f1f1f1;
+  --muted: #6f6f6f;
+  --line: #f1f1f1;
+  --shadow: 0 2px 10px rgba(0, 0, 0, .6);
+  --shadow-hover: 0 10px 26px rgba(0, 0, 0, .75);
+  --head-shadow: 0 1px 6px rgba(0, 0, 0, .5);
+}
+
+/* ページ間遷移（対応ブラウザではクロスフェード） */
+@view-transition { navigation: auto; }
+
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- ヘッダー ---------- */
+.header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  height: 64px;
+  background: var(--surface);
+  box-shadow: var(--head-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu {
+  position: absolute;
+  left: clamp(20px, 4vw, 44px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: grid;
+  align-content: center;
+  gap: 6px;
+}
+.menu span { display: block; height: 2px; width: 22px; background: #777; border-radius: 1px; margin: 0 auto; }
+
+.logo-link { display: block; line-height: 0; color: inherit; border-radius: 4px; }
+.logo { width: 30px; height: 30px; display: block; }
+/* 本物のロゴ画像（横長でも高さ基準で表示） */
+img.logo {
+  height: var(--logo-h, 36px);
+  width: auto;
+  /* 左のメニューボタンと重ならない幅まで（はみ出す分は高さごと縮小） */
+  max-width: calc(100vw - 2 * (clamp(20px, 4vw, 44px) + 44px));
+  object-fit: contain;
+}
+@media (max-width: 440px) {
+  img.logo { height: calc(var(--logo-h, 36px) * .8); }
+}
+/* ダークモード：ロゴの黒い文字が読めるよう、白い下地を敷く */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) img.logo { background: #fff; padding: 4px 10px; border-radius: 6px; box-sizing: content-box; }
+}
+:root[data-theme="dark"] img.logo { background: #fff; padding: 4px 10px; border-radius: 6px; box-sizing: content-box; }
+
+/* ---------- レイアウト ---------- */
+main { width: min(960px, calc(100% - 40px)); margin: 0 auto; padding: 36px 0 72px; }
+h1 { font-size: 24px; font-weight: 700; margin: 0 0 18px; letter-spacing: .02em; }
+
+.muted { color: color-mix(in srgb, var(--text) 48%, var(--surface)); }
+
+.panel {
+  background: var(--surface);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--text) 6%, transparent), 0 2px 12px rgba(0, 0, 0, .05);
+}
+
+/* ---------- ピル（タグ・切替ボタン） ---------- */
+.pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  border: 0;
+  border-radius: 999px;
+  padding: 4px 12px;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--text) 8%, var(--surface));
+  color: color-mix(in srgb, var(--text) 55%, var(--surface));
+}
+.pill[aria-pressed="true"] { background: var(--text); color: var(--surface); }
+
+/* ---------- サムネイル（一覧カード・詳細ページ共通の見た目） ---------- */
+.thumb {
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #222;
+  box-shadow: var(--shadow);
+  position: relative;
+  isolation: isolate; /* Safari で拡大アニメ中も角丸が崩れないように */
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* 読み込み完了でふわっと表示（JSが is-loading を付けた画像のみ） */
+.thumb img.is-loading { opacity: 0; }
+.thumb img { transition: opacity .35s ease, transform .5s var(--ease-out); }
+
+/* ---------- フォーカス ---------- */
+.tab:focus-visible,
+.card:focus-visible,
+.menu:focus-visible,
+.logo-link:focus-visible,
+.text-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.pill:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* ---------- 状態表示 ---------- */
+.notice {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 48px 20px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.9;
+  letter-spacing: .04em;
+}
+
+@media (max-width: 720px) {
+  h1 { font-size: 21px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  @view-transition { navigation: none; }
+}

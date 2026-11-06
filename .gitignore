@@ -1,0 +1,16 @@
+# 依存パッケージ・ビルド出力（現在は未使用）
+node_modules/
+dist/
+
+# 元画像は公開しない（サイトで使うのは images/ の変換済み画像だけ）
+サムネイル/*/*
+!サムネイル/*/.gitkeep
+assets-src/
+
+# 最初の仮作成ファイル
+program-list.html
+
+# OS が作るファイル
+.DS_Store
+Thumbs.db
+desktop.ini

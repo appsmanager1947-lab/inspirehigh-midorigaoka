@@ -1,0 +1,190 @@
+{
+  "classes": [
+    {
+      "id": "class1",
+      "label": "Class1"
+    },
+    {
+      "id": "class2",
+      "label": "Class2"
+    },
+    {
+      "id": "class3",
+      "label": "Class3"
+    },
+    {
+      "id": "class4",
+      "label": "Class4"
+    }
+  ],
+  "programs": [
+    {
+      "id": "class2-fc155f72",
+      "class": "class2",
+      "title": "すぐ帰りたい勢が考える家での幸せ時間",
+      "source": "サムネイル/Class2/すぐ帰りたい勢が考える家での幸せ時間.png",
+      "image": "images/programs/class2-fc155f72.webp",
+      "thumb": "images/programs/class2-fc155f72.thumb.webp"
+    },
+    {
+      "id": "class2-8645b82b",
+      "class": "class2",
+      "title": "ディズニー好きと考える夢に向かう過程と努力",
+      "source": "サムネイル/Class2/ディズニー好きと考える夢に向かう過程と努力.jfif",
+      "image": "images/programs/class2-8645b82b.webp",
+      "thumb": "images/programs/class2-8645b82b.thumb.webp"
+    },
+    {
+      "id": "class2-05a89d2d",
+      "class": "class2",
+      "title": "パイペースな人が考える譲れないものってどうやって見つける？",
+      "source": "サムネイル/Class2/パイペースな人が考える譲れないものってどうやって見つける？.JPG",
+      "image": "images/programs/class2-05a89d2d.webp",
+      "thumb": "images/programs/class2-05a89d2d.thumb.webp"
+    },
+    {
+      "id": "class2-4db27eb6",
+      "class": "class2",
+      "title": "パスタ愛好家と考えるパスタでフードロスを減らせるか",
+      "source": "サムネイル/Class2/パスタ愛好家と考えるパスタでフードロスを減らせるか.jfif",
+      "image": "images/programs/class2-4db27eb6.webp",
+      "thumb": "images/programs/class2-4db27eb6.thumb.webp"
+    },
+    {
+      "id": "class2-a123f304",
+      "class": "class2",
+      "title": "プロ野球ファンが考える好きをどう仕事にする？",
+      "source": "サムネイル/Class2/プロ野球ファンが考える好きをどう仕事にする？.jfif",
+      "image": "images/programs/class2-a123f304.webp",
+      "thumb": "images/programs/class2-a123f304.thumb.webp"
+    },
+    {
+      "id": "class2-d42ccfe1",
+      "class": "class2",
+      "title": "マイペースな人が考える仕事とは？",
+      "source": "サムネイル/Class2/マイペースな人が考える仕事とは？.jfif",
+      "image": "images/programs/class2-d42ccfe1.webp",
+      "thumb": "images/programs/class2-d42ccfe1.thumb.webp"
+    },
+    {
+      "id": "class2-ab8087fa",
+      "class": "class2",
+      "title": "優柔不断の人が考える決めるとは？",
+      "source": "サムネイル/Class2/優柔不断の人が考える決めるとは？.jfif",
+      "image": "images/programs/class2-ab8087fa.webp",
+      "thumb": "images/programs/class2-ab8087fa.thumb.webp"
+    },
+    {
+      "id": "class2-c4340850",
+      "class": "class2",
+      "title": "可愛いを追求する絵描きと考える趣味ってなんだろう",
+      "source": "サムネイル/Class2/可愛いを追求する絵描きと考える趣味ってなんだろう.jfif",
+      "image": "images/programs/class2-c4340850.webp",
+      "thumb": "images/programs/class2-c4340850.thumb.webp"
+    },
+    {
+      "id": "class2-19306fdd",
+      "class": "class2",
+      "title": "夜型人間と考える夜型のメリットとは？",
+      "source": "サムネイル/Class2/夜型人間と考える夜型のメリットとは？.png",
+      "image": "images/programs/class2-19306fdd.webp",
+      "thumb": "images/programs/class2-19306fdd.thumb.webp"
+    },
+    {
+      "id": "class2-b371ca98",
+      "class": "class2",
+      "title": "心理学が好きな人と考える人と関わるってどういうこと？",
+      "source": "サムネイル/Class2/心理学が好きな人と考える人と関わるってどういうこと？.jfif",
+      "image": "images/programs/class2-b371ca98.webp",
+      "thumb": "images/programs/class2-b371ca98.thumb.webp"
+    },
+    {
+      "id": "class2-e28cdc5c",
+      "class": "class2",
+      "title": "情緒不安定が考える自分らしさを見つける",
+      "source": "サムネイル/Class2/情緒不安定が考える自分らしさを見つける.jfif",
+      "image": "images/programs/class2-e28cdc5c.webp",
+      "thumb": "images/programs/class2-e28cdc5c.thumb.webp"
+    },
+    {
+      "id": "class2-edb6e484",
+      "class": "class2",
+      "title": "書道特待生が考える継続するってどういうこと？",
+      "source": "サムネイル/Class2/書道特待生が考える継続するってどういうこと？.jfif",
+      "image": "images/programs/class2-edb6e484.webp",
+      "thumb": "images/programs/class2-edb6e484.thumb.webp"
+    },
+    {
+      "id": "class2-1da382a1",
+      "class": "class2",
+      "title": "本多輝が考える恋愛について",
+      "source": "サムネイル/Class2/本多輝が考える恋愛について.jfif",
+      "image": "images/programs/class2-1da382a1.webp",
+      "thumb": "images/programs/class2-1da382a1.thumb.webp"
+    },
+    {
+      "id": "class2-17842b65",
+      "class": "class2",
+      "title": "本当は昭和生まれ化も知れない現役JKが考える多様性にどう向き合う？",
+      "source": "サムネイル/Class2/本当は昭和生まれ化も知れない現役JKが考える多様性にどう向き合う？.jfif",
+      "image": "images/programs/class2-17842b65.webp",
+      "thumb": "images/programs/class2-17842b65.thumb.webp"
+    },
+    {
+      "id": "class2-f95b3ff6",
+      "class": "class2",
+      "title": "松原理紗が考える人間について",
+      "source": "サムネイル/Class2/松原理紗が考える人間について.jfif",
+      "image": "images/programs/class2-f95b3ff6.webp",
+      "thumb": "images/programs/class2-f95b3ff6.thumb.webp"
+    },
+    {
+      "id": "class2-eadc0069",
+      "class": "class2",
+      "title": "横須賀市民が考える横須賀の魅力とは？",
+      "source": "サムネイル/Class2/横須賀市民が考える横須賀の魅力とは？.jfif",
+      "image": "images/programs/class2-eadc0069.webp",
+      "thumb": "images/programs/class2-eadc0069.thumb.webp"
+    },
+    {
+      "id": "class2-f858af8a",
+      "class": "class2",
+      "title": "猫好きと考える想いをう伝える？",
+      "source": "サムネイル/Class2/猫好きと考える想いをう伝える？.jfif",
+      "image": "images/programs/class2-f858af8a.webp",
+      "thumb": "images/programs/class2-f858af8a.thumb.webp"
+    },
+    {
+      "id": "class2-8dbf0b00",
+      "class": "class2",
+      "title": "花粉症が考える自然をどう愛す？",
+      "source": "サムネイル/Class2/花粉症が考える自然をどう愛す？.jfif",
+      "image": "images/programs/class2-8dbf0b00.webp",
+      "thumb": "images/programs/class2-8dbf0b00.thumb.webp"
+    },
+    {
+      "id": "class2-b4f703a2",
+      "class": "class2",
+      "title": "負けず嫌いと考えるピンチで、1番爆破する自分の強みとは？",
+      "source": "サムネイル/Class2/負けず嫌いと考えるピンチで、1番爆破する自分の強みとは？.jfif",
+      "image": "images/programs/class2-b4f703a2.webp",
+      "thumb": "images/programs/class2-b4f703a2.thumb.webp"
+    },
+    {
+      "id": "class2-566796f9",
+      "class": "class2",
+      "title": "飽きっぽい人が考える目標とどう向き合う？",
+      "source": "サムネイル/Class2/飽きっぽい人が考える目標とどう向き合う？.jfif",
+      "image": "images/programs/class2-566796f9.webp",
+      "thumb": "images/programs/class2-566796f9.thumb.webp"
+    },
+    {
+      "id": "class2-c9ce82e0",
+      "class": "class2",
+      "title": "鳥好きが考える飼うってどういうこと？",
+      "source": "サムネイル/Class2/鳥好きが考える飼うってどういうこと？.jfif",
+      "image": "images/programs/class2-c9ce82e0.webp",
+      "thumb": "images/programs/class2-c9ce82e0.thumb.webp"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<title>プログラム一覧</title>
+<link rel="preload" href="data/programs.json" as="fetch" crossorigin>
+<link rel="stylesheet" href="./src/styles/base.css">
+<link rel="stylesheet" href="./src/styles/list.css">
+<script type="module" src="./src/js/list.js"></script>
+</head>
+<body>
+<header class="header">
+  <button class="menu" type="button" aria-label="メニュー"><span></span><span></span><span></span></button>
+  <a class="logo-link" href="./" aria-label="プログラム一覧へ">
+    <!-- 仮ロゴ。本物の画像は src/config.js の logo.src で指定すると自動で差し替わります -->
+    <svg class="logo" viewBox="0 0 40 40" fill="none" stroke="var(--logo)" stroke-width="1.6" role="img" aria-label="ロゴ">
+      <ellipse cx="20" cy="20" rx="16.5" ry="15.5" transform="rotate(-12 20 20)"/>
+      <ellipse cx="20" cy="20" rx="15" ry="16.5" transform="rotate(25 20 20)"/>
+      <ellipse cx="20" cy="20" rx="12" ry="11.5" transform="rotate(8 20 20)" stroke-width="2.4"/>
+    </svg>
+  </a>
+</header>
+<main>
+  <section class="dash" aria-label="マイページ">
+    <div class="panel profile">
+      <div class="who">
+        <div class="avatar" aria-hidden="true">T</div>
+        <div class="name">石井　匡</div>
+      </div>
+      <div class="stats muted">
+        <div class="stat"><b id="count">0</b><span>クリエイター</span></div>
+      </div>
+    </div>
+    <div class="cols">
+      <section class="panel activity" aria-label="アクティビティ">
+        <div class="panel-head">
+          <h2>アクティビティ</h2>
+        </div>
+        <div class="banner">
+          <img src="./images/banner.webp" width="744" height="519" decoding="async" alt="InspireHighのプロデューサー募集：あなたにしか作れないセッションがある">
+        </div>
+      </section>
+      <div class="side">
+        <section class="panel" aria-label="最近の視聴">
+          <div class="panel-head"><h2>最近の視聴</h2></div>
+          <div id="recent"><div class="recent-img" aria-hidden="true"></div></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <h1 class="list-title">プログラム一覧</h1>
+  <!-- タブは data/programs.json の classes から自動生成（「セッション」は全件） -->
+  <div class="tabs" id="tabs" role="tablist" aria-label="表示するクラス">
+    <button class="tab" type="button" role="tab" aria-selected="true">セッション</button>
+  </div>
+  <!-- カードは data/programs.json から自動生成 -->
+  <div class="grid" id="grid" aria-busy="true"></div>
+</main>
+</body>
+</html>
