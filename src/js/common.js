@@ -24,7 +24,8 @@ let cache;
  * 戻り値: { classes: [{ id, label }], programs: [...] }
  */
 export function loadData() {
-  cache ??= fetch(asset(site.data))
+  // no-cache：毎回サーバーに更新の有無を確かめる（変わっていなければキャッシュを使うので軽い）
+  cache ??= fetch(asset(site.data), { cache: 'no-cache' })
     .then((res) => {
       if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
       return res.json();

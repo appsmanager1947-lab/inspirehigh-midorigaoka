@@ -11,7 +11,7 @@
 - タイトルの初期値はファイル名です。programs.json で書き換えた title や description などは、
   同期しても保持されます（画像のファイル名かクラスを変えた場合は、別の画像として扱われます）
 - フォルダから消した画像は、一覧からも公開用画像からも消えます
-- 変換済みの画像が元画像より新しい場合は変換を省きます（--force で全件やり直し）
+- 画像の中身が前回と同じなら変換を省きます（中身で判定するので、古い日付の画像で置き換えても正しく変換されます。--force で全件やり直し）
 
 必要なもの: Python 3 と Pillow（pip install pillow）
 """
@@ -43,7 +43,16 @@ IGNORE = {".gitkeep", "desktop.ini", "thumbs.db", ".ds_store"}  # 画像以外�
 VARIANTS = [("", 1280, 80), (".thumb", 640, 76)]  # (接尾辞, 最大幅, 画質)
 
 # 同期のたびに作り直す項目。これ以外（title, description, tags, href など）は手で書き換えたものを残す
-GENERATED_KEYS = ("id", "class", "source", "image", "thumb")
+GENERATED_KEYS = ("id", "class", "source", "hash", "image", "thumb")
+
+
+def file_hash(path: Path) -> str:
+    """画像の中身から作る目印。中身が変われば必ず変わる（更新日時には左右されない）"""
+    h = hashlib.sha1()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()[:10]
 
 
 def natural_key(s: str):
@@ -165,9 +174,12 @@ def main() -> None:
         for src in images:
             pid = f"{cid}-{short_hash(src.name)}"
             try:
+                digest = file_hash(src)
+                # 前回と中身が同じで、変換済みファイルもそろっていれば変換を省く
+                same = not FORCE and existing.get(pid, {}).get("hash") == digest
                 for suffix, width, quality in VARIANTS:
                     dst = OUT_DIR / f"{pid}{suffix}.webp"
-                    if not is_fresh(dst, src):
+                    if not (same and dst.exists()):
                         convert(src, dst, width, quality)
                         converted += 1
             except Exception as e:  # 壊れた画像などは飛ばして続行
@@ -183,8 +195,10 @@ def main() -> None:
                 "class": cid,
                 **entry,
                 "source": src.relative_to(ROOT).as_posix(),
-                "image": f"images/programs/{pid}.webp",
-                "thumb": f"images/programs/{pid}.thumb.webp",
+                "hash": digest,
+                # ?v= は、画像を置き換えたときにブラウザの古いキャッシュを使わせないための目印
+                "image": f"images/programs/{pid}.webp?v={digest}",
+                "thumb": f"images/programs/{pid}.thumb.webp?v={digest}",
             })
         print(f"  {folder.name}: {ok} 件")
 
