@@ -13,14 +13,19 @@
 - フォルダから消した画像は、一覧からも公開用画像からも消えます
 - 画像の中身が前回と同じなら変換を省きます（中身で判定するので、古い日付の画像で置き換えても正しく変換されます。--force で全件やり直し）
 
-必要なもの: Python 3 と Pillow（pip install pillow）
+- 同期のあと、変わった data/ と images/ を自動でコミットして GitHub に push します（公開サイトに反映）
+  公開せずに同期だけしたいときは --no-push を付けます
+
+必要なもの: Python 3 と Pillow（pip install pillow）、git
 """
 from __future__ import annotations
 
 import hashlib
 import json
 import re
+import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
 
 from PIL import Image, ImageOps
@@ -221,6 +226,76 @@ def main() -> None:
 
     dropped = len(set(existing) - {p["id"] for p in programs})
     print(f"\n同期しました：全 {len(programs)} 件（画像の変換 {converted} 件、削除 {removed} 件、一覧から外した {dropped} 件）")
+
+    if NO_PUSH:
+        print("（--no-push のため、公開はしませんでした）")
+    else:
+        publish(len(programs))
+
+
+# ---------------------------------------------------------------------------
+# 公開：同期で変わった data/ と images/ だけをコミットして GitHub に push する
+# ---------------------------------------------------------------------------
+NO_PUSH = "--no-push" in sys.argv
+PUBLISH_PATHS = ["data", "images"]  # 自動で公開するのはこの2つだけ（HTML や設定の編集中のものは送らない）
+SITE_URL = "https://appsmanager1947-lab.github.io/inspirehigh-midorigaoka/"
+
+
+def git(*args: str, timeout: int = 60) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        ["git", *args], cwd=ROOT, capture_output=True, text=True,
+        encoding="utf-8", errors="replace", timeout=timeout,
+    )
+
+
+def publish(count: int) -> None:
+    print("\n--- 公開 ---")
+    try:
+        if git("rev-parse", "--is-inside-work-tree").returncode != 0:
+            print("[公開できません] このフォルダは git で管理されていません。")
+            return
+    except FileNotFoundError:
+        print("[公開できません] git が見つかりません。Git for Windows をインストールしてください。")
+        return
+
+    git("add", "-A", "--", *PUBLISH_PATHS)
+    has_changes = git("diff", "--cached", "--quiet", "--", *PUBLISH_PATHS).returncode != 0
+    if has_changes:
+        msg = f"同期: 全{count}件（{datetime.now():%Y-%m-%d %H:%M}）"
+        r = git("commit", "-m", msg, "--", *PUBLISH_PATHS)
+        if r.returncode != 0:
+            print("[公開できません] コミットに失敗しました。\n" + (r.stderr or r.stdout).strip())
+            return
+        print(f"変更を記録しました：{msg}")
+
+    # 未送信のコミット（今回の分＋前回送れなかった分）があるか
+    ahead = git("rev-list", "--count", "@{u}..HEAD")
+    if ahead.returncode == 0 and ahead.stdout.strip() == "0":
+        print("公開サイトはすでに最新です（送る変更はありません）。")
+        return
+
+    print("GitHub に送信しています…（初回などはログイン画面が出ることがあります）")
+    try:
+        r = git("push", timeout=300)
+        if r.returncode != 0 and "rejected" in (r.stderr + r.stdout):
+            # GitHub 側に新しい変更がある場合は、取り込んでから送り直す
+            print("GitHub 側の変更を取り込んでから、送り直します…")
+            pull = git("pull", "--rebase", "--autostash", timeout=300)
+            if pull.returncode != 0:
+                git("rebase", "--abort")
+                print("[公開できません] GitHub 側の変更と食い違いがあります。\n" + pull.stderr.strip())
+                return
+            r = git("push", timeout=300)
+    except subprocess.TimeoutExpired:
+        print("[公開できません] 送信がタイムアウトしました。インターネット接続を確認して、もう一度実行してください。")
+        return
+
+    if r.returncode != 0:
+        print("[公開できません] 送信に失敗しました。インターネット接続を確認して、もう一度実行してください。")
+        print("（変更はこのPCに記録済みなので、次回の同期でまとめて送信されます）")
+        print((r.stderr or r.stdout).strip())
+        return
+    print(f"公開しました。1〜2分で反映されます。\n{SITE_URL}")
 
 
 if __name__ == "__main__":
